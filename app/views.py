@@ -9,47 +9,55 @@ class ProductView(View):
         topwears = Product.objects.filter(category='TW')
         bottomwears = Product.objects.filter(category='BW')
         mobile = Product.objects.filter(category='M')
-        return render(request, 'app/home.html', {'topwears':topwears,
-        'bottomwears':bottomwears, 'mobile':mobile})
+        return render(request, 'app/home.html', {'topwears':topwears, 'bottomwears':bottomwears, 'mobile':mobile})
 
 
 class ProductDetailView(View):
     def get(self, request, pk):
         product = Product.objects.get(pk=pk)
+        return render(request, 'app/productdetail.html', {'product':product})
 
 
-# def home(request):
-#  return render(request, 'app/home.html')
+def home(request):
+ return render(request, 'app/home.html')
 
-# def product_detail(request):
-#  return render(request, 'app/productdetail.html')
+def product_detail(request):
+    return render(request, 'app/productdetail.html')
 
-# def add_to_cart(request):
-#  return render(request, 'app/addtocart.html')
+def add_to_cart(request):
+    return render(request, 'app/addtocart.html')
 
-# def buy_now(request):
-#  return render(request, 'app/buynow.html')
+def buy_now(request):
+    return render(request, 'app/buynow.html')
 
-# def profile(request):
-#  return render(request, 'app/profile.html')
+def profile(request):
+    return render(request, 'app/profile.html')
 
-# def address(request):
-#  return render(request, 'app/address.html')
+def address(request):
+    return render(request, 'app/address.html')
 
-# def orders(request):
-#  return render(request, 'app/orders.html')
+def orders(request):
+    return render(request, 'app/orders.html')
 
-# def change_password(request):
-#  return render(request, 'app/changepassword.html')
+def change_password(request):
+ return render(request, 'app/changepassword.html')
 
-# def mobile(request):
-#  return render(request, 'app/mobile.html')
+def mobile(request, data=None):
+    if data == None:
+        mobile = Product.objects.filter(category='M')
+    elif data == 'Redmi' or data == 'Samsung':
+        mobile = Product.objects.filter(category='M').filter(brand=data)
+    elif data == 'below':
+        mobile = Product.objects.filter(category='M').filter(discounted_price__lt=10000)
+    elif data == 'above':
+        mobile = Product.objects.filter(category='M').filter(discounted_price__gt=10000)
+    return render(request, 'app/mobile.html', {'mobiles':mobile})
 
-# def login(request):
-#  return render(request, 'app/login.html')
+def login(request):
+    return render(request, 'app/login.html')
 
-# def customerregistration(request):
-#  return render(request, 'app/customerregistration.html')
+def customerregistration(request):
+    return render(request, 'app/customerregistration.html')
 
-# def checkout(request):
-#  return render(request, 'app/checkout.html')
+def checkout(request):
+    return render(request, 'app/checkout.html')
